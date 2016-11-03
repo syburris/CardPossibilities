@@ -1,6 +1,7 @@
 package com.theironyard;
 
 import java.util.HashSet;
+import java.util.stream.Collectors;
 
 public class Main {
 
@@ -14,6 +15,7 @@ public class Main {
         }
         return deck;
     }
+
 
     public static HashSet<HashSet<Card>> createHands(HashSet<Card> deck) {
         HashSet<HashSet<Card>> hands = new HashSet<>();
@@ -40,9 +42,20 @@ public class Main {
         return hands;
     }
 
+    public static boolean isFlush(HashSet<Card> hand) {
+        HashSet<Card.Suit> suits = new HashSet<>();
+        for (Card c : hand) {
+            suits.add(c.suit);
+        }
+        return suits.size() == 1;
+    }
+
     public static void main(String[] args) {
         HashSet<Card> deck = createDeck();
         HashSet<HashSet<Card>> hands = createHands(deck);
+        hands = hands.stream()
+                .filter(Main::isFlush)
+                .collect(Collectors.toCollection(HashSet::new));
         System.out.println(hands.size());
 
     }

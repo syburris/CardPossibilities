@@ -1,5 +1,8 @@
 package com.theironyard;
 
+import javafx.collections.transformation.SortedList;
+
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.stream.Collectors;
 
@@ -58,27 +61,29 @@ public class Main {
         return ranks.size() == 1;
     }
 
-//    public static boolean threeOfAKind (HashSet<Card> hand) {
-//        HashSet<Card.Rank> ranks = new HashSet<>();
-//        for (Card c : hand) {
-//            ranks.add(c.rank);
-//        }
-//        return ranks.size() == 2;
-//    }
-
-    public static boolean straight (HashSet<Card> hand) {
-        HashSet<Card.Rank> ranks = new HashSet<>();
+    public static boolean threeOfAKind (HashSet<Card> hand) {
+        HashMap<Card.Rank, Integer> ranks = new HashMap<>();
         for (Card c : hand) {
-
+            if (!ranks.containsKey(c.rank)) {
+                ranks.put(c.rank, 1);
+            }
+            else {
+                int tally = ranks.get(c.rank);
+                int newTally = tally + 1;
+                ranks.put(c.rank, newTally);
+            }
         }
-        return ranks.size() == 4;
+        return ranks.containsValue(3);
+
     }
+
+
 
     public static void main(String[] args) {
         HashSet<Card> deck = createDeck();
         HashSet<HashSet<Card>> hands = createHands(deck);
         hands = hands.stream()
-                .filter(Main::straight)
+                .filter(Main::threeOfAKind)
                 .collect(Collectors.toCollection(HashSet::new));
         System.out.println(hands.size());
 

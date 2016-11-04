@@ -74,7 +74,21 @@ public class Main {
             }
         }
         return ranks.containsValue(3);
+    }
 
+    public static boolean isPair (HashSet<Card> hand) {
+        HashMap<Card.Rank, Integer> ranks = new HashMap<>();
+        for (Card c : hand) {
+            if (!ranks.containsKey(c.rank)) {
+                ranks.put(c.rank, 1);
+            }
+            else {
+                int tally = ranks.get(c.rank);
+                int newTally = tally + 1;
+                ranks.put(c.rank, newTally);
+            }
+        }
+        return ranks.containsValue(2);
     }
 
 
@@ -83,7 +97,7 @@ public class Main {
         HashSet<Card> deck = createDeck();
         HashSet<HashSet<Card>> hands = createHands(deck);
         hands = hands.stream()
-                .filter(Main::threeOfAKind)
+                .filter(Main::isPair)
                 .collect(Collectors.toCollection(HashSet::new));
         System.out.println(hands.size());
 

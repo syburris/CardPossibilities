@@ -50,11 +50,35 @@ public class Main {
         return suits.size() == 1;
     }
 
+    public static boolean fourOfAKind (HashSet<Card> hand) {
+        HashSet<Card.Rank> ranks = new HashSet<>();
+        for (Card c : hand) {
+            ranks.add(c.rank);
+        }
+        return ranks.size() == 1;
+    }
+
+//    public static boolean threeOfAKind (HashSet<Card> hand) {
+//        HashSet<Card.Rank> ranks = new HashSet<>();
+//        for (Card c : hand) {
+//            ranks.add(c.rank);
+//        }
+//        return ranks.size() == 2;
+//    }
+
+    public static boolean straight (HashSet<Card> hand) {
+        HashSet<Card.Rank> ranks = new HashSet<>();
+        for (Card c : hand) {
+
+        }
+        return ranks.size() == 4;
+    }
+
     public static void main(String[] args) {
         HashSet<Card> deck = createDeck();
         HashSet<HashSet<Card>> hands = createHands(deck);
         hands = hands.stream()
-                .filter(Main::isFlush)
+                .filter(Main::straight)
                 .collect(Collectors.toCollection(HashSet::new));
         System.out.println(hands.size());
 

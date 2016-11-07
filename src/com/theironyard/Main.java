@@ -91,6 +91,29 @@ public class Main {
         return ranks.containsValue(2);
     }
 
+//    public static boolean isTwoPair (HashSet<Card> hand) {
+//        HashMap<Card.Rank, Integer> ranks = new HashMap<>();
+//        for (Card c : hand) {
+//            if (!ranks.containsKey(c.rank)) {
+//                ranks.put(c.rank, 1);
+//            }
+//            else {
+//                int tally = ranks.get(c.rank);
+//                int newTally = tally + 1;
+//                ranks.put(c.rank, newTally);
+//            }
+//            HashMap<Card.Rank, Integer> ranks2 = new HashMap<>();
+//
+//        }
+//        return ranks.containsValue(2) && ranks.containsValue(2);
+//    }
+
+    public static boolean isStraight (HashSet<Card> hand) {
+        HashSet<Card.Rank> ranks = new HashSet<>();
+        for (Card c : hand) {
+            ranks.add(c.rank);
+        }
+    }
 
 
     public static void main(String[] args) {
